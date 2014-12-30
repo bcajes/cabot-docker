@@ -4,18 +4,15 @@
 #
 # VERSION 1.0
 
-FROM ubuntu:14.04
+FROM ubuntu:12.04
 MAINTAINER Alexander Kushnarev <avkushnarev@gmail.com>
 
 # Prepare
 RUN apt-get update
-RUN apt-get install -y build-essential nodejs libpq-dev python-dev npm nginx git curl
-
-RUN curl -OL https://raw.github.com/pypa/pip/master/contrib/get-pip.py
-RUN python get-pip.py
+RUN apt-get install -y build-essential nodejs libpq-dev python-dev npm nginx git curl python-pip
 
 # Deploy cabot
-RUN git clone https://github.com/arachnys/cabot.git /cabot
+RUN git clone https://github.com/bcajes/cabot.git /cabot
 ADD fixture.json /cabot/
 ADD run.sh /cabot/
 ADD nginx.conf /etc/nginx/nginx.conf
@@ -71,7 +68,7 @@ ENV TWILIO_OUTGOING_NUMBER +14155551234
 # Used for pointing links back in alerts etc.
 ENV WWW_HTTP_HOST cabot.example.com
 ENV WWW_SCHEME http
-RUN ["ln","-s","/usr/bin/nodejs","/usr/bin/node"]
+#RUN ["ln","-s","/usr/bin/nodejs","/usr/bin/node"]
 
 WORKDIR /cabot/
 CMD . /cabot/migrate.sh && /cabot/run.sh
