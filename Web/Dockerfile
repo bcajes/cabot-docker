@@ -9,7 +9,7 @@ MAINTAINER Alexander Kushnarev <avkushnarev@gmail.com>
 
 # Prepare
 RUN apt-get update
-RUN apt-get install -y build-essential nodejs libpq-dev python-dev npm nginx git curl python-pip
+RUN apt-get install -y build-essential nodejs libpq-dev python-dev npm nginx git curl python-pip emacs iputils-ping
 
 # Deploy cabot
 RUN git clone https://github.com/bcajes/cabot.git /cabot
