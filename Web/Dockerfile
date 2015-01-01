@@ -72,5 +72,3 @@ ENV WWW_SCHEME http
 
 WORKDIR /cabot/
 CMD . /cabot/migrate.sh && /cabot/run.sh
-
-
