@@ -9,13 +9,16 @@ MAINTAINER Alexander Kushnarev <avkushnarev@gmail.com>
 
 # Prepare
 RUN apt-get update
-RUN apt-get install -y build-essential nodejs libpq-dev python-dev npm git curl python-pip emacs iputils-ping
+RUN apt-get install -y build-essential nodejs libpq-dev python-dev npm nginx git curl python-pip emacs iputils-ping
 
 # Deploy cabot
 RUN git clone https://github.com/bcajes/cabot.git /cabot
 ADD fixture.json /cabot/
 ADD run.sh /cabot/
-#ADD nginx.conf /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/nginx.conf
+#add ports to nginx, which requires config file instead of env vars
+RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.4/ep-linux && chmod +x /usr/local/bin/ep
+RUN ep /etc/nginx/nginx.conf
 ADD migrate.sh /cabot/
 
 # Install dependencies
